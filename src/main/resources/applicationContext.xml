@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--配置properties文件的位置-->
+
+    <!--配置spring创建IOC容器时要扫描的包-->
+    <context:component-scan base-package="kulo.sgg">
+        <!--   配置扫描时过滤controller文件     -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--配置spring整合mybatis的工厂类对象-->
+    <bean id="mybatisSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--    注入数据源    -->
+        <property name="dataSource" ref="dataSource"/>
+        <!--   加载mybatis配置文件路径     -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--   配置mapper文件映射目录     -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+    <!--  配置mybatis扫描器  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--   扫描所有dao接口的实现，加入到ioc容器中    -->
+        <property name="basePackage" value="kulo.sgg.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="mybatisSessionFactory"/>
+    </bean>
+
+    <!--配置数据源-->
+    <context:property-placeholder location="classpath:dbConfig.properties"/>
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--    最大连接数    -->
+        <property name="maxActive" value="20"/>
+        <!--    最小空闲数    -->
+        <property name="minIdle" value="5"/>
+        <!--    最大等待时间    -->
+        <property name="maxWait" value="60000"/>
+    </bean>
+
+    <!--配置映射文件的位置，用于让spring读取包下的类，来创建dao接口的代理实现类，同时存入ioc容器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描所有dao接口的实现，加入到ioc容器中 -->
+        <property name="basePackage" value="kulo.sgg.dao"/>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="kuloTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 控制住数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 开启基于注解的事务，事务控制配置 -->
+    <!--配置aop-->
+    <aop:config>
+        <!--    切入点表达式    -->
+        <!--    service后跟随两个.表示service下的所有文件，包含子目录;符号*后面括号中的两个点表示符号任意多    -->
+        <aop:pointcut id="txPoint" expression="execution(* kulo.sgg.service..*(..))"/>
+        <!--    配置事务增强,使用后面的txAdvice作为事务增强配置    -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+
+    <!--  事务管理器的名字要对应  -->
+    <tx:advice id="txAdvice" transaction-manager="kuloTransactionManager">
+        <tx:attributes>
+            <!--  符号*表示所有方法都是事务方法  -->
+            <tx:method name="*"/>
+            <!--     get方法设为只读       -->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>
