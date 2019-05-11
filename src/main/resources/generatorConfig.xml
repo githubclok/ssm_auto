@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <properties resource="dbConfig.properties"/>
+    <properties resource="classpath:dbConfig.properties"/>
     <context id="mysql" defaultModelType="hierarchical" targetRuntime="MyBatis3Simple">
         <property name="autoDelimitKeywords" value="false"/>
         <property name="javaFileEncoding" value="UTF-8"/>
@@ -112,7 +112,7 @@
             <!--  &ndash;&gt;-->
         </javaClientGenerator>
 
-        <table tableName="rm_dealer_info" domainObjectName="rmDealerInfo">
+        <table tableName="rm_dealer_info" domainObjectName="RmDealerInfoEntity">
             <!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate -->
             <property name="useActualColumnNames" value="false"/>
         </table>

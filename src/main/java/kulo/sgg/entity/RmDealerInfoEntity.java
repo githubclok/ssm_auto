@@ -1,6 +1,9 @@
 package kulo.sgg.entity;
 
-public class rmDealerInfo {
+import lombok.Builder;
+
+@Builder
+public class RmDealerInfoEntity {
     /**
      * 主键
      */
