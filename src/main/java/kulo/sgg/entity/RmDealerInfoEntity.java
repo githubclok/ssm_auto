@@ -1,8 +1,10 @@
 package kulo.sgg.entity;
 
 import lombok.Builder;
+import lombok.ToString;
 
 @Builder
+@ToString
 public class RmDealerInfoEntity {
     /**
      * 主键

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--    配值mybatis通过Slf4j输出日志    -->
+        <setting name="logImpl" value="SLF4J"/>
+        <!--    使用jdbc的getGeneratedKeys获取数据库自增主键值      -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- 配置全局启用缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!--    开启延迟加载    -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--    允许单一语句返回多结果集    -->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!--    useColumnLabel是使用列标签代替列名，列标签指的是别名。正确的应该是用别名代替列名，用来自定义字段映射    -->
+        <setting name="useColumnLabel" value="true"/>
+
+
+    </settings>
+
+</configuration>
