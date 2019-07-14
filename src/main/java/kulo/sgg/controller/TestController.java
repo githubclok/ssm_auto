@@ -1,4 +1,4 @@
-package kulo.controller;
+package kulo.sgg.controller;
 
 import kulo.sgg.config.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;

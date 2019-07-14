@@ -1,0 +1,9 @@
+kulo\sgg\service\Man.class
+kulo\sgg\config\AppConfig.class
+kulo\sgg\entity\RmDealerInfoEntity$RmDealerInfoEntityBuilder.class
+kulo\sgg\controller\TestController.class
+kulo\sgg\Person.class
+kulo\sgg\utils\LinkedListKL.class
+kulo\sgg\dao\RmDealerInfoEntityMapper.class
+kulo\sgg\utils\ArrayListKL.class
+kulo\sgg\entity\RmDealerInfoEntity.class

@@ -41,9 +41,14 @@ public class Person {
         this.dealers = dealers;
     }
 
-    public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mvc.xml");
-        Person person = (Person)ctx.getBean("person");
-        System.out.println(person);
+    public Person() {
+    }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", dealers=" + dealers +
+                '}';
     }
 }

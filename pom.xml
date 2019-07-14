@@ -101,7 +101,7 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <!--使用provided，因为tomcat自带了servlet-api，此处声明表示该jar仅在编译测试阶段使用 -->
-<!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <!-- log依赖 -->
@@ -118,7 +118,13 @@
             <version>${logger.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${logger.version}</version>
+        </dependency>        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -160,6 +166,22 @@
             <version>1.18.2</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>25.1-jre</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.ctrip.framework.apollo/apollo-client -->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
